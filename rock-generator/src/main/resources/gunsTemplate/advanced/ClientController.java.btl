@@ -1,0 +1,15 @@
+package ${clientControllerConfig.packageName};
+
+<% for(import in clientControllerConfig.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${table.comment} 
+ * 远程调用客户端
+ * @author ${genQo.author}
+ * @Date ${tool.currentTime()}
+ */
+@FeignClient(name= ${context.bizEnBigName}Facade.SERVICE_NAME,configuration = FeignClientCfg.class)
+public interface ${context.bizEnBigName}Client extends ${context.bizEnBigName}Facade{
+}

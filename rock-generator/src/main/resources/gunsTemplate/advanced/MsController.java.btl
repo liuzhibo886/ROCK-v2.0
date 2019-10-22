@@ -1,0 +1,148 @@
+package ${msControllerConfig.packageName};
+
+<% for(import in msControllerConfig.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${table.comment}控制器
+ *
+ * @author ${genQo.author}
+ * @Date ${tool.currentTime()}
+ */
+@RestController
+@Api(tags={"${table.comment}控制器"})
+public class ${context.bizEnBigName}MsController implements ${context.bizEnBigName}Facade{
+
+	@Autowired
+    I${context.bizEnBigName}Service ${context.bizEnName}Service;
+    /**
+	* 获取${table.comment}列表
+     */
+   	@PostMapping(value = context+"/list")
+    @ResponseBody
+    @Log(before=true,end=false,name="集合查询")
+    @ApiOperation(value = "获取${table.comment}列表")
+    public Result<Page<${context.entityName}>> list(@RequestBody ${context.entityName}ListReq ${context.bizEnName}ListReq){
+    	Page<${context.entityName}> page = new PageFactory<${context.entityName}>().defaultPage(${context.bizEnName}ListReq);
+    	Wrapper<${context.entityName}> wrapper = Condition.create();
+ 		wrapper.eq("is_del", 0);
+		Page<${context.entityName}> rs = ${context.bizEnName}Service.selectPage(page,wrapper);
+		return  new Result<Page<${context.entityName}>>(rs);
+    }
+        /**
+	* 获取${table.comment}列表(无分页)
+     */
+   	@PostMapping(value = context+"/records")
+    @ResponseBody
+    @Log(before=true,end=false,name="集合查询")
+    @ApiOperation(value = "获取${table.comment}列表")
+    public Result<List<${context.entityName}>> records(@RequestBody ${context.entityName}ListReq ${context.bizEnName}ListReq){
+    	Wrapper<${context.entityName}> wrapper = Condition.create();
+ 		wrapper.eq("is_del", 0);
+ 		wrapper.last("limit "+${context.bizEnName}ListReq.getOffset()+","+${context.bizEnName}ListReq.getLimit());
+		List<${context.entityName}> rows = ${context.bizEnName}Service.selectList(wrapper);
+		return  new Result<List<${context.entityName}>>(rows);
+    }
+    /**
+	* 新增${table.comment}
+     */
+    @PostMapping(value = context+"/add")
+    @ResponseBody
+    @Log(before=true,end=true,name="新增")
+    @ApiOperation(value = "新增${table.comment}")
+    public Result<${context.entityName}> add(@RequestBody ${context.entityName} ${context.bizEnName}){
+   		  ${context.bizEnName}.setIsDel(0);
+          ${context.bizEnName}Service.insert(${context.bizEnName});
+        return new Result<${context.entityName}>(${context.bizEnName});
+    }
+    /**
+	 * 删除${table.comment}
+     */
+    @PostMapping(value = context+"/delete")
+    @ResponseBody
+    @ApiOperation(value = "删除${table.comment}")
+	@ApiImplicitParams({ @ApiImplicitParam(name = "${keyTableField.propertyName}", value = "${keyTableField.comment}"),<% if(subTableField !=null){%>
+		@ApiImplicitParam(name = "${subTableField.propertyName}", value = "${subTableField.comment}"),<% }%>
+		@ApiImplicitParam(name = "lastUser", value = "最后修改人") })
+    public Result<Void> delete(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>,@RequestParam(name="lastUser",required=false)String lastUser) {
+   		 Wrapper<${context.entityName}> wrapper=Condition.create();
+    	${context.entityName} entity = new ${context.entityName}();
+		entity.setIsDel(1);
+		entity.setLastUser(lastUser);
+		wrapper.eq("${keyTableField.name}", ${keyTableField.propertyName});
+   	<% if(subTableField !=null && subTableField.propertyType =="String"){ %>
+   		if( UtilString.isNotBlank(subTableField.propertyName)){
+  		 wrapper.eq("${subTableField.name}", ${subTableField.propertyName});
+   		}
+   	<% } else if(subTableField !=null){ %>
+   	    if(${subTableField.propertyName} !=null){
+  		 wrapper.eq("${subTableField.name}", ${subTableField.propertyName});
+   		}
+   	<% } %>
+		Integer count = ${context.bizEnName}Service.update(entity,wrapper);
+       	if(count > 0) {
+			return new Result<Void>();
+		}else {
+			return new Result<Void>(ResultEnum.DELETE_ERR);
+		}
+    }
+    /**
+	* 修改${table.comment}
+     */
+    @PostMapping(value = context+"/update")
+    @ResponseBody
+    @Log(before=true,end=true,name="修改")
+    @ApiOperation(value = "修改${table.comment}")
+    public Result<Void> update(@RequestBody ${context.entityName} ${context.bizEnName}) {
+   		Wrapper<${context.entityName}> wrapper=Condition.create();
+   		wrapper.eq("${keyTableField.name}", ${context.bizEnName}.get${keyTableField.capitalName}());
+   	<% if(subTableField !=null && subTableField.propertyType =="String"){ %>
+   		if( UtilString.isNotBlank(${context.bizEnName}.get${subTableField.capitalName}())){
+  		 wrapper.eq("${subTableField.name}", ${context.bizEnName}.get${subTableField.capitalName}());
+   		}
+   	<% } else if(subTableField !=null){ %>
+   	    if(${context.bizEnName}.get${subTableField.capitalName}() !=null){
+  		 wrapper.eq("${subTableField.name}", ${context.bizEnName}.get${subTableField.capitalName}());
+   		}
+   	<% } %>
+   		${context.bizEnName}.set${keyTableField.capitalName}(null);
+   	<% if(subTableField !=null){ %>
+   		${context.bizEnName}.set${subTableField.capitalName}(null);
+   	<% }%>
+   		wrapper.eq("is_del", 0);
+      	Integer count=${context.bizEnName}Service.update(${context.bizEnName},wrapper);
+        if(count > 0) {
+			return new Result<Void>();
+		}else {
+			return new Result<Void>(ResultEnum.UPDATE_ERR);
+		}
+    }
+    /**
+     * ${table.comment}详情
+     */
+    @PostMapping(value = context+"/detail")
+    @ResponseBody
+    @Log(before=true,end=true,name="详情")
+    @ApiOperation(value = "${table.comment}详情,根据${context.bizEnName}Id查询")
+   	@ApiImplicitParams({ @ApiImplicitParam(name = "${keyTableField.propertyName}", value = "${keyTableField.comment}")<% if(subTableField !=null){%>
+	@ApiImplicitParam(name = "${subTableField.propertyName}", value = "${subTableField.comment}"),<% }%>
+	 })
+    public Result<${context.entityName}> detail(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>) {
+    	Wrapper<${context.entityName}> wrapper=Condition.create();
+		wrapper.eq("${keyTableField.name}", ${keyTableField.propertyName});
+    <% if(subTableField !=null && subTableField.propertyType =="String"){ %>
+   		if( UtilString.isNotBlank(subTableField.propertyName)){
+  		 wrapper.eq("${subTableField.name}", ${subTableField.propertyName});
+   		}
+   	<% } else if(subTableField !=null){ %>
+   	    if(${subTableField.propertyName} !=null){
+  		 wrapper.eq("${subTableField.name}", ${subTableField.propertyName});
+   		}
+   	<% } %>
+   		wrapper.eq("is_del", 0);
+     	${context.entityName} ${context.bizEnName}=${context.bizEnName}Service.selectOne(wrapper);
+     	
+        return new Result<${context.entityName}>(${context.bizEnName});
+    }
+}

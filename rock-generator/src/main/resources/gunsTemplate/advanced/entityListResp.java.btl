@@ -1,0 +1,17 @@
+package ${dtoRespControllerConfig.packageName};
+
+<% for(import in dtoRespControllerConfig.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${table.comment}返回参数
+ *
+ *  @author ${genQo.author}
+ * @Date ${tool.currentTime()}
+ */
+@Data
+public class ${context.bizEnBigName}ListResp extends ${context.bizEnBigName} {
+
+	private static final long serialVersionUID = 1L;
+}

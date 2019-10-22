@@ -1,0 +1,17 @@
+package ${dtoReqControllerConfig.packageName};
+
+<% for(import in dtoReqControllerConfig.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${table.comment}请求参数
+ *
+ * @author ${genQo.author}
+ * @Date ${tool.currentTime()}
+ */
+@Data
+public class ${context.bizEnBigName}ListReq extends PageReq{
+
+	private static final long serialVersionUID = 1L;
+}

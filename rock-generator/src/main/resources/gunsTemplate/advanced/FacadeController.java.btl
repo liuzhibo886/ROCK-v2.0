@@ -1,0 +1,56 @@
+package ${facadeControllerConfig.packageName};
+
+<% for(import in facadeControllerConfig.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${table.comment}
+ * Facade
+ * @author ${genQo.author}
+ * @Date ${tool.currentTime()}
+ */
+public interface ${context.bizEnBigName}Facade{
+
+    static String SERVICE_NAME="";
+    static String context="/${context.bizEnName}";
+    /**
+   	  * 获取${table.comment}列表
+     */
+    @PostMapping(value = context+"/list")
+    @ResponseBody
+    public Result<Page<${context.entityName}>> list(@RequestBody ${context.entityName}ListReq ${context.bizEnName}ListReq);
+     /**
+   	  * 获取${table.comment}列表(无分页)
+     */
+    @PostMapping(value = context+"/records")
+    @ResponseBody
+    public Result<List<${context.entityName}>> records(@RequestBody ${context.entityName}ListReq ${context.bizEnName}ListReq);
+ 
+    /**
+	* 新增${table.comment}
+     */
+    @PostMapping(value = context+"/add")
+    @ResponseBody
+    public Result<${context.entityName}> add(@RequestBody ${context.entityName} ${context.bizEnName});
+
+    /**
+      * 删除${table.comment}
+     */
+    @PostMapping(value = context+"/delete")
+    @ResponseBody
+    public Result<Void> delete(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>,@RequestParam(name="lastUser",required=false)String lastUser);
+    /**
+     * 修改${table.comment}
+     */
+    @PostMapping(value = context+"/update")
+    @ResponseBody
+    public Result<Void> update(@RequestBody ${context.entityName} ${context.bizEnName});
+
+    /**
+     * ${table.comment}详情
+     */
+    @PostMapping(value = context+"/detail")
+    @ResponseBody
+    public Result<${context.entityName}> detail(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>);
+}

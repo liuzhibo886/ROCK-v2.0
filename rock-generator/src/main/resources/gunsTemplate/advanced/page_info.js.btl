@@ -1,0 +1,78 @@
+/**
+ * 初始化${context.bizChName}详情对话框
+ */
+var ${context.bizEnBigName}InfoDlg = {
+    ${context.bizEnName}InfoData : {}
+};
+
+/**
+ * 清除数据
+ */
+${context.bizEnBigName}InfoDlg.clearData = function() {
+    this.${context.bizEnName}InfoData = {};
+}
+
+/**
+ * 关闭此对话框
+ */
+${context.bizEnBigName}InfoDlg.close = function() {
+    parent.layer.close(window.parent.${context.bizEnBigName}.layerIndex);
+}
+
+/**
+ * 收集数据
+ */
+${context.bizEnBigName}InfoDlg.collectData = function() {
+ this.${context.bizEnName}InfoData= form.val("${context.bizEnName}From");
+ this.${context.bizEnName}InfoData['${context.bizEnName}Id']=$("#${context.bizEnName}Id").val();
+}
+
+/**
+ * 提交添加
+ */
+${context.bizEnBigName}InfoDlg.addSubmit = function() {
+
+    this.clearData();
+    this.collectData();
+
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/${context.projectName}/${context.moduleName}/${context.bizEnName}/add", function(data){
+        Feng.success("添加成功!");
+        window.parent.${context.bizEnBigName}.reload();
+        ${context.bizEnBigName}InfoDlg.close();
+    },function(data){
+        Feng.error("添加失败!" + data.msg + "!");
+    });
+    ajax.setBody(this.${context.bizEnName}InfoData);
+    ajax.start();
+}
+
+/**
+ * 提交修改
+ */
+${context.bizEnBigName}InfoDlg.editSubmit = function() {
+    this.clearData();
+    this.collectData();
+    //提交信息
+    var ajax = new $ax(Feng.ctxPath + "/${context.projectName}/${context.moduleName}/${context.bizEnName}/update", function(data){
+        Feng.success("修改成功!");
+        window.parent.${context.bizEnBigName}.reload();
+        ${context.bizEnBigName}InfoDlg.close();
+    },function(data){
+        Feng.error("修改失败!" + data.msg + "!");
+    });
+    ajax.setBody(this.${context.bizEnName}InfoData);
+    ajax.start();
+}
+
+$(function() {
+	form.on('submit(add)', function(data) {
+		${context.bizEnBigName}InfoDlg.addSubmit();
+		return false; // 阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+	form.on('submit(edit)', function(data) {
+		${context.bizEnBigName}InfoDlg.editSubmit();
+		return false; // 阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	});
+   form.render();
+});

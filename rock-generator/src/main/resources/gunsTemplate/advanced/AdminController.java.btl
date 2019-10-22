@@ -1,0 +1,107 @@
+package ${adminControllerConfig.packageName};
+
+<% for(import in adminControllerConfig.imports!){ %>
+import ${import};
+<% } %>
+
+/**
+ * ${table.comment}控制器
+ *
+ * @author ${genQo.author}
+ * @Date ${tool.currentTime()}
+ */
+@Controller
+@RequestMapping("/${context.projectName}/${context.moduleName}/${context.bizEnName}")
+public class ${context.bizEnBigName}Controller{
+
+    private String PREFIX = "/${context.projectName}/${context.moduleName}/${context.bizEnName}/";
+
+    @Autowired
+    private ${context.entityName}Client ${context.bizEnName}Client;
+
+	@Autowired
+	IShiro shiro;
+    /**
+	 * 跳转到${table.comment}首页
+     */
+    @RequestMapping("")
+    public String index() {
+        return PREFIX + "${context.bizEnName}.html";
+    }
+
+    /**
+	* 跳转到添加${table.comment}
+     */
+    @RequestMapping("/${context.bizEnName}_add")
+    public String ${context.bizEnName}Add() {
+        return PREFIX + "${context.bizEnName}_add.html";
+    }
+
+    /**
+ 	 * 跳转到修改${table.comment}
+     */
+    @RequestMapping("/${context.bizEnName}_update")
+    public String ${context.bizEnName}Update(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>, Model model) {
+        Result<${context.entityName}> rs = ${context.bizEnName}Client.detail(${keyTableField.propertyName}<% if(subTableField !=null){%>,${subTableField.propertyName}<% }%>);
+        if (rs.check()) {
+			model.addAttribute("item", rs.getData());
+		}else {
+			throw new RockException(ResultEnum.SELECT_ERR);
+		}
+        return PREFIX + "${context.bizEnName}_edit.html";
+    }
+
+    /**
+	 * 获取${table.comment}列表
+     */
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public Result<Page<${context.entityName}>> list(@RequestBody ${context.bizEnBigName}ListReq  req) {
+		Result<Page<${context.entityName}>> rs = ${context.bizEnName}Client.list(req);
+		return rs;
+    }
+
+    /**
+	* 新增${table.comment}
+     */
+    @RequestMapping(value = "/add")
+    @ResponseBody
+    public Result<${context.entityName}> add(@RequestBody ${context.entityName} ${context.bizEnName}) {
+   		UtilObject.setNull(${context.bizEnName});
+    	${context.bizEnName}.setLastUser(UtilJson.getStr(shiro.getUser()));    
+        Result<${context.entityName}> rs = ${context.bizEnName}Client.add(${context.bizEnName});
+		return rs;
+    }
+
+    /**
+	 * 删除${table.comment}
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public Result<Void> delete(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>) {
+        Result<Void> rs = ${context.bizEnName}Client.delete(${keyTableField.propertyName}<% if(subTableField !=null){%>,${subTableField.propertyName}<% }%>,UtilJson.getStr(shiro.getUser()));
+		return rs;
+    }
+
+    /**
+	* 修改${table.comment}
+     */
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public Result<Void> update(@RequestBody ${context.entityName} ${context.bizEnName}) {
+   		UtilObject.setNull(${context.bizEnName});
+        ${context.bizEnName}.setLastUser(UtilJson.getStr(shiro.getUser()));
+        Result<Void> rs=${context.bizEnName}Client.update(${context.bizEnName});
+		return rs;
+    }
+
+    /**
+	* ${table.comment}详情
+     */
+    @RequestMapping(value = "/detail")
+    @ResponseBody
+    public Result<${context.entityName}> detail(@RequestParam(name="${keyTableField.propertyName}") ${keyTableField.propertyType} ${keyTableField.propertyName}<% if(subTableField !=null){%>,@RequestParam(name="${subTableField.propertyName}",required=false) ${subTableField.propertyType} ${subTableField.propertyName}<% }%>) {
+        Result<${context.entityName}> rs = ${context.bizEnName}Client.detail(${keyTableField.propertyName} <% if(subTableField !=null){%>,${subTableField.propertyName}<% }%>);
+		return rs;
+    }
+}
