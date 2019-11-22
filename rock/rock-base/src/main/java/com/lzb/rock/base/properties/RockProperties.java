@@ -66,6 +66,10 @@ public class RockProperties {
 	public boolean mutiDatasourceOnOff = false;
 
 	/**
+	 * 开启多数据源就必须设置默认数据源
+	 */
+	public String defaultDatasource;
+	/**
 	 * admin 使用的数据源
 	 */
 	public String sysDataSourceKey = "rock-system";

@@ -13,7 +13,6 @@
 
 	<groupId>com.lzb.rock.login</groupId>
 	<artifactId>rock-login</artifactId>
-	<version>${rock.project.version}</version>
 
 	<name>rock-login</name>
 

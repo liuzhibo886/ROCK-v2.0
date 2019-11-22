@@ -11,10 +11,9 @@
 		<version>2.0.0-SNAPSHOT</version>
 	</parent>
 
-	
+
 	<groupId>com.lzb.rock.pdf</groupId>
 	<artifactId>rock-pdf</artifactId>
-	<version>${rock.project.version}</version>
 
 	<name>rock-pdf</name>
 

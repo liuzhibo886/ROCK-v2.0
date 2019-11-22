@@ -13,11 +13,14 @@
 
 	<groupId>com.lzb.rock.mybatis</groupId>
 	<artifactId>rock-mybatis</artifactId>
-	<version>${rock.project.version}</version>
 
 	<name>rock-mybatis</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.lzb.rock.base</groupId>
+			<artifactId>rock-base</artifactId>
+		</dependency>
 		<!-- 数据库 -->
 		<!-- mybatis -->
 		<!--驱动包 -->
@@ -28,16 +31,14 @@
 		<!--mybatis-plus -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
-			<artifactId>mybatisplus-spring-boot-starter</artifactId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.lzb.rock.base</groupId>
-			<artifactId>rock-base</artifactId>
-		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

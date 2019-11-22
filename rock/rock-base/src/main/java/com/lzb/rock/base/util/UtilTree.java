@@ -21,8 +21,8 @@ public class UtilTree {
 	 */
 	public static TreeNode createTopNode() {
 		TreeNode treeNode = new TreeNode();
-		treeNode.setId(-1L);
-		treeNode.setPId(-2L);
+		treeNode.setId("-1");
+		treeNode.setPId("-2");
 		treeNode.setTitle("顶级");
 		return treeNode;
 	}
@@ -37,7 +37,7 @@ public class UtilTree {
 		// 查找跟节点
 		List<TreeNode> tree = new ArrayList<TreeNode>();
 		for (TreeNode treeNode : data) {
-			if (treeNode.getId() == -1) {
+			if (treeNode.getId().equals("-1")) {
 				tree.add(treeNode);
 			}
 		}

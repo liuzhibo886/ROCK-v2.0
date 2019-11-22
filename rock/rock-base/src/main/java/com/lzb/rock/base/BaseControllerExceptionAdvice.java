@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -15,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.lzb.rock.base.common.ResultEnum;
+import com.lzb.rock.base.exception.RockClientException;
 import com.lzb.rock.base.exception.RockException;
 import com.lzb.rock.base.exception.UtilExceptionStackTrace;
 import com.lzb.rock.base.util.UtilHttpKit;
+import com.lzb.rock.base.util.UtilString;
 
 /**
  * 全局异常处理器
@@ -43,7 +44,18 @@ public abstract class BaseControllerExceptionAdvice {
 		result.setData(ex.getData());
 		result.setCode(ex.getCode());
 		result.setMsg(ex.getMessage());
+		log.warn("uri:{},{}", UtilHttpKit.getRequestUri(), result);
+		log.warn(UtilExceptionStackTrace.getStackTrace(ex));
+		return result;
+	}
 
+	@ExceptionHandler(RockClientException.class)
+	@ResponseBody
+//	 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public Result<String> rockClientException(RockClientException ex) {
+		Result<String> result = new Result<String>();
+		result.setCode(ex.getCode());
+		result.setMsg(ex.getMessage());
 		log.warn("uri:{},{}", UtilHttpKit.getRequestUri(), result);
 		log.warn(UtilExceptionStackTrace.getStackTrace(ex));
 		return result;

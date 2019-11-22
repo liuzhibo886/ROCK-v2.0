@@ -50,6 +50,8 @@ public enum ResultEnum implements RockEnum {
 	FILE_NOT_FOUND("1018", "文件不存在"),
 	
 	DATA_ERR("1019", "数据异常"),
+	
+	DATA_SOURCE_ERR("1020", "数据源异常"),
 
 	
 	//-------------------------------------------------------------------------------

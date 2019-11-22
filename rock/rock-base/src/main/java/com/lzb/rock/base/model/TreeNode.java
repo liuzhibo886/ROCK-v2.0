@@ -31,11 +31,11 @@ import lombok.Data;
 public class TreeNode implements Comparable<TreeNode> {
 
 	@ApiModelProperty(value = "ID 唯一")
-	Long id;
+	String id;
 	@ApiModelProperty(value = "标题")
 	String title;
 	@ApiModelProperty(value = "父级ID，组装数据时使用", hidden = true)
-	Long pId;
+	String pId;
 	@ApiModelProperty(value="字典编码，组装数据时使用", hidden = true)
     private String code;
 	@ApiModelProperty(value = "节点是否初始展开，默认 false")
@@ -44,7 +44,7 @@ public class TreeNode implements Comparable<TreeNode> {
 	Boolean checked = false;
 	@ApiModelProperty(value = "节点是否为禁用状态。默认 false")
 	Boolean disabled = false;
-	@ApiModelProperty(value = "节点字段名;一般对应表字段名")
+	@ApiModelProperty(value = "节点字段名;一般对应表字段名") 
 	String field;
 	@ApiModelProperty(value = "点击节点弹出新窗口对应的 url。需开启 isJump 参数")
 	String href;

@@ -9,11 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1914,8 +1916,20 @@ public class UtilString extends StringUtils {
 		}
 	}
 
-	/*
-	 * public static void main(String[] args) { String temp = "43022319891111911X";
-	 * System.out.println(StringUtils.isIDCard(temp)); }
+	/**
+	 * 判断字符串是否包含中文
+	 * 
+	 * @param str
+	 * @return
 	 */
+	public static boolean isContainChinese(String str) {
+		Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+		Matcher m = p.matcher(str);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
+
+
 }

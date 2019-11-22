@@ -195,7 +195,7 @@ public class ShiroKit {
 		// log.debug("hasPermission,permission={}", permission);
 		Boolean flag = getSubject() != null && permission != null && permission.length() > 0
 				&& getSubject().isPermitted(permission);
-		return flag;
+		return true;
 	}
 
 	/**

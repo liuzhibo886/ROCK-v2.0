@@ -1,7 +1,10 @@
 package com.lzb.rock.mybaits.mybatisplus;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.sql.DataSource;
 
@@ -9,12 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
+import com.lzb.rock.base.common.ResultEnum;
+import com.lzb.rock.base.exception.RockClientException;
+import com.lzb.rock.base.holder.SpringContextHolder;
 import com.lzb.rock.base.properties.RockProperties;
 import com.lzb.rock.base.util.UtilString;
+import com.lzb.rock.mybaits.properties.DruidProperties;
 import com.lzb.rock.mybaits.properties.MutiDatasource;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +36,6 @@ public class BaseDataSourceConfig {
 
 	@Autowired
 	DruidProperties druidProperties;
-
 	@Autowired
 	RockProperties rockProperties;
 	@Autowired
@@ -48,20 +54,28 @@ public class BaseDataSourceConfig {
 	public DataSource dataSource() {
 		// 多数据源
 		if (rockProperties.mutiDatasourceOnOff) {
-
+			if (UtilString.isBlank(rockProperties.defaultDatasource)) {
+				throw new RockClientException(ResultEnum.DATA_SOURCE_ERR, "默认数据源为空");
+			}
 			DynamicDataSource dynamicDataSource = new DynamicDataSource();
+
 			Map<String, String> dataSourcePro = mutiDatasource.getDatasource();
-			log.info("====================>启用多数据源初始化");
-			for (int i = 0; i < 20; i++) {
-				String key = "";
-				if (i > 0) {
-					key = key + i;
+			Set<String> keys = new TreeSet<String>();
+			for (String dataSourceKey : dataSourcePro.keySet()) {
+				if (UtilString.isNotBlank(dataSourceKey)) {
+					String[] arr = dataSourceKey.split("_");
+					if (arr != null && arr.length == 2 && UtilString.isNotBlank(arr[1])) {
+						keys.add(arr[1]);
+					}
 				}
-				String datasourcename = dataSourcePro.get("datasourcename" + key);
-				String url = dataSourcePro.get("url" + key);
-				String username = dataSourcePro.get("username" + key);
-				String password = dataSourcePro.get("password" + key);
-				String filters = dataSourcePro.get("filters" + key);
+			}
+			log.info("====================>启用多数据源初始化");
+			for (String key : keys) {
+				String datasourcename = dataSourcePro.get("datasourcename_" + key);
+				String url = dataSourcePro.get("url_" + key);
+				String username = dataSourcePro.get("username_" + key);
+				String password = dataSourcePro.get("password_" + key);
+				String filters = dataSourcePro.get("filters_" + key);
 				if (UtilString.isNotBlank(datasourcename) && UtilString.isNotBlank(url)
 						&& UtilString.isNotBlank(username) && UtilString.isNotBlank(password)
 						&& UtilString.isNotBlank(filters)) {
@@ -73,12 +87,21 @@ public class BaseDataSourceConfig {
 
 					druidProperties.config(dataSource);
 					dataSourceMap.put(datasourcename, dataSource);
-					if (i < 1) {
-						dynamicDataSource.setDefaultTargetDataSource(dataSource);
-					}
+
 					log.info("初始化数据源;datasourcename={};username={};url={}", datasourcename, username, url);
+				} else {
+					throw new RockClientException(ResultEnum.DATA_SOURCE_ERR, "默认数据源参数异常,datasourcename="
+							+ datasourcename + ",username=" + username + ",filters=" + filters);
 				}
 			}
+			// 判断默认数据源是否存在
+
+			if (dataSourceMap.get(rockProperties.defaultDatasource) == null) {
+				throw new RockClientException(ResultEnum.DATA_SOURCE_ERR,
+						"默认数据源:" + rockProperties.defaultDatasource + "未初始化");
+			}
+			// 设置默认数据源
+			dynamicDataSource.setDefaultTargetDataSource(dataSourceMap.get(rockProperties.defaultDatasource));
 			dynamicDataSource.setTargetDataSources(dataSourceMap);
 			// dynamicDataSource.setResolvedDataSources(dataSourceMap);
 
@@ -102,11 +125,4 @@ public class BaseDataSourceConfig {
 		return new DataSourceTransactionManager(dataSource());
 	}
 
-	/**
-	 * 乐观锁mybatis插件
-	 */
-	@Bean
-	public OptimisticLockerInterceptor optimisticLockerInterceptor() {
-		return new OptimisticLockerInterceptor();
-	}
 }

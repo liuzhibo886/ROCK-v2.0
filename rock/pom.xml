@@ -46,7 +46,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- 架构包版本定义 -->
+			<!--架构包版本定义 -->
 			<dependency>
 				<groupId>com.lzb.rock.base</groupId>
 				<artifactId>rock-base</artifactId>
@@ -92,11 +92,6 @@
 				<artifactId>rock-ehcache</artifactId>
 				<version>${rock.project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.lzb.rock.netty</groupId>
-				<artifactId>rock-netty</artifactId>
-				<version>${rock.project.version}</version>
-			</dependency>
 			<!--solr -->
 			<!-- <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-solr</artifactId> 
 				<version>4.0.1.RELEASE</version> </dependency> <dependency> <groupId>org.apache.solr</groupId> 
@@ -112,14 +107,13 @@
 			<!--mybatis-plus -->
 			<dependency>
 				<groupId>com.baomidou</groupId>
-				<artifactId>mybatisplus-spring-boot-starter</artifactId>
-				<version>1.0.5</version>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>2.1.9</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid</artifactId>
-				<version>1.1.6</version>
+				<version>1.1.20</version>
 			</dependency>
 			<!-- 七牛云 -->
 			<dependency>
@@ -194,6 +188,12 @@
 				<artifactId>netty-all</artifactId>
 				<version>4.1.41.Final</version>
 			</dependency>
+			<!--htmlunit -->
+			<dependency>
+				<groupId>net.sourceforge.htmlunit</groupId>
+				<artifactId>htmlunit</artifactId>
+				<version>2.35.0</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>
@@ -203,7 +203,7 @@
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus</artifactId>
-			<version>2.1.8</version>
+			<version>2.1.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

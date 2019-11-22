@@ -22,9 +22,8 @@ import lombok.Data;
 @EnableConfigurationProperties
 @Data
 public class MutiDatasource {
-	  /**
-     * 从配置文件中读取的datasource开头的数据
-     * 注意：名称必须与配置文件中保持一致
-     */
+	/**
+	 * 从配置文件中读取的datasource开头的数据 注意：名称必须与配置文件中保持一致，下划线分割
+	 */
 	Map<String, String> datasource = new HashMap<>();
 }

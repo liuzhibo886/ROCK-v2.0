@@ -1,5 +1,11 @@
 package com.lzb.rock.mybaits.mybatisplus;
 
+import org.springframework.stereotype.Component;
+
+import com.lzb.rock.base.common.ResultEnum;
+import com.lzb.rock.base.exception.RockClientException;
+import com.lzb.rock.base.util.UtilString;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -10,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  *         2019年3月10日 上午11:21:48
  */
 @Slf4j
+@Component
 public class DataSourceContextHolder {
 
 	private static final ThreadLocal<String> CONTEX_HOLDER = new ThreadLocal<String>();
