@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lzb</groupId>
+		<artifactId>rock</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.lzb.rock.test</groupId>
+	<artifactId>rock-test-ms</artifactId>
+	<packaging>jar</packaging>
+
+	<name>rock-test-ms</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.lzb.rock.test</groupId>
+			<artifactId>rock-test-open</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+		</dependency>
+		<!-- ========================= -->
+		<dependency>
+			<groupId>com.lzb.rock.base</groupId>
+			<artifactId>rock-base</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lzb.rock.mybatis</groupId>
+			<artifactId>rock-mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lzb.rock.ehcache</groupId>
+			<artifactId>rock-ehcache</artifactId>
+		</dependency>
+	</dependencies>
+
+	<!--==================================== -->
+	<!-- 配置不同环境的配置文件 -->
+	<!--==================================== -->
+	<!-- 打包配置: 1、mvn package -DskipTests 打本地环境包，指定了dev为默认环境，顾不需要进行环境指定 2、mvn 
+		clean package -DskipTests -Pprod 打生成环境包 ： -P{profile环境ID} 3、mvn clean package 
+		-DskipTests -Ptest 打测试环境包 ： -P{profile环境ID} 说明：通过 -P 指定 profile。 -->
+	<profiles>
+		<profile>
+			<!-- 本地开发环境 -->
+			<id>dev</id>
+			<properties>
+				<package.environment>dev</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 测试环境 -->
+			<id>test</id>
+			<properties>
+				<package.environment>test</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 预发布环境 -->
+			<id>prec</id>
+			<properties>
+				<package.environment>prec</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 生产环境 -->
+			<id>prod</id>
+			<properties>
+				<package.environment>prod</package.environment>
+			</properties>
+		</profile>
+	</profiles>
+	<build>
+		<finalName>${project.name}-${project.version}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>dev/*</exclude>
+					<exclude>prod/*</exclude>
+					<exclude>test/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${package.environment}</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.lzb.rock.test.TestMsApplication</mainClass>
+					<source>${java.source.version}</source>
+					<target>${java.target.version}</target>
+					<charset>${project.build.charsetEncoding}</charset>
+					<encoding>${project.build.docencodingEncoding}</encoding>
+					<docencoding>${project.build.docencodingEncoding}</docencoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		<defaultGoal>compile</defaultGoal>
+	</build>
+</project>

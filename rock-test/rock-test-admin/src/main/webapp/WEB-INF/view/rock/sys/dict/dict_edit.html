@@ -1,0 +1,33 @@
+<%layout("/common/_container.html"){%>
+<div class="container-fluid">
+	<div class="layui-form" style="margin-top: 20px" id="dictForm" lay-filter="dictFrom">
+		<input type="hidden" id="dictId" value="${item.dictId}">
+		<div class="layui-form-item">
+			<#Input id="" name="父节点" layVerify="required" placeholder="父节点" value="${pDict.dictValue}" disabled="disabled" />
+			<#Input id="" name="字典编码" layVerify="required" value="${item.dictCode}" placeholder="字典编码" disabled="disabled" />
+			<#Input id="" name="最大等级" layVerify="required" value="${item.dictMaxLevel}" placeholder="最大等级" disabled="disabled" />
+
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="" name="字典key值" layVerify="required" value="${item.dictKey}" placeholder="字典key值" disabled="disabled" />
+			<#Input id="dictValue" name="字典value值" layVerify="required" value="${item.dictValue}" placeholder="字典value值" />
+			<#Input id="sort" name="排序字段，升序" layVerify="required" value="${item.sort}" placeholder="排序字段，升序" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Text id="dictText" name="文本内容，根据需要填写" value="${item.dictText}" placeholder="文本内容，根据需要填写" />
+			<div class="layui-form-item"></div>
+			<#Fieldset />
+			<div class="layui-form-item">
+				<div class="layui-form-item" style="text-align: center;">
+					<button class="layui-btn" lay-submit lay-filter="edit">提交</button>
+					<button class="layui-btn" onclick="DictInfoDlg.close()">取消</button>
+				</div>
+			</div>
+
+
+		</div>
+		<script src="${ctxPath}/view/rock/sys/dict/dict_info.js"></script>
+	</div>
+	<%}%>

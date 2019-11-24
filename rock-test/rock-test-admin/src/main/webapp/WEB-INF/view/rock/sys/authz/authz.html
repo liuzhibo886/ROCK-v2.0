@@ -1,0 +1,29 @@
+<% layout("/common/_container.html"){ %>
+<div class="container-fluid">
+	<div class="layui-form" style="margin-top: 20px">
+		<div class="layui-form-item" >
+			<#Input id="authzId" name="权限ID" placeholder="ID" />
+		</div>
+	</div>
+	<table class="layui-table" id="authzTable" lay-filter="authzTable"></table>
+	
+	<script type="text/html" id="authzToolbar">
+	  <div class="layui-btn-container">
+	    <button class="layui-btn layui-btn-sm" lay-event="reload"><i class="layui-icon layui-icon-search"></i></i>查询</button>
+	    <% if(shiro.hasPermission("/rock/sys/authz/add")){ %>
+	    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i>添加</button>
+	    <% } %>
+	  </div>
+	</script>
+	
+	<script type="text/html" id="authzBar">
+	 <% if(shiro.hasPermission("/rock/sys/authz/update")){ %>
+	  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+	  <% } %>
+	  <% if(shiro.hasPermission("/rock/sys/authz/delete")){ %>
+	  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	  <% } %>
+	</script>
+	<script src="${ctxPath}/view/rock/sys/authz/authz.js"></script>
+</div>
+<% } %>

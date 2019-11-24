@@ -71,12 +71,11 @@ public class BaseDataSourceConfig {
 			}
 			log.info("====================>启用多数据源初始化");
 			for (String key : keys) {
-				String datasourcename = dataSourcePro.get("datasourcename_" + key);
 				String url = dataSourcePro.get("url_" + key);
 				String username = dataSourcePro.get("username_" + key);
 				String password = dataSourcePro.get("password_" + key);
 				String filters = dataSourcePro.get("filters_" + key);
-				if (UtilString.isNotBlank(datasourcename) && UtilString.isNotBlank(url)
+				if (UtilString.isNotBlank(key) && UtilString.isNotBlank(url)
 						&& UtilString.isNotBlank(username) && UtilString.isNotBlank(password)
 						&& UtilString.isNotBlank(filters)) {
 					DruidDataSource dataSource = new DruidDataSource();
@@ -86,12 +85,12 @@ public class BaseDataSourceConfig {
 					druidProperties.setFilters(filters);
 
 					druidProperties.config(dataSource);
-					dataSourceMap.put(datasourcename, dataSource);
+					dataSourceMap.put(key, dataSource);
 
-					log.info("初始化数据源;datasourcename={};username={};url={}", datasourcename, username, url);
+					log.info("初始化数据源;datasourcename={};username={};url={}", key, username, url);
 				} else {
 					throw new RockClientException(ResultEnum.DATA_SOURCE_ERR, "默认数据源参数异常,datasourcename="
-							+ datasourcename + ",username=" + username + ",filters=" + filters);
+							+ key + ",username=" + username + ",filters=" + filters);
 				}
 			}
 			// 判断默认数据源是否存在
