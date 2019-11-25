@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+	<schema name="jd" checkSQLschema="true" sqlMaxLimit="100">
+		<table name="MYCAT_SEQUENCE" primaryKey="name" dataNode="dn1" type="global" />
+		<table name="jd_url" primaryKey="jd_url_id" autoIncrement="true" dataNode="dn$1-30" rule="rule-jd-url-id" />
+		<table name="jd_goods" primaryKey="jd_goods_id" autoIncrement="true" dataNode="dn$1-30" rule="rule-jd-goods-qriginal-id" />
+		<table name="test_goods_order" primaryKey="goods_order_id" autoIncrement="true" dataNode="dn$1-30" rule="rule-member-id" />
+		<table name="test_goods_order_list" primaryKey="goods_order_list_id" autoIncrement="true" dataNode="dn$1-30" rule="rule-member-id" />
+		<table name="test_member" primaryKey="member_id" autoIncrement="true" dataNode="dn$1-30" rule="rule-member-id" />
+		<table name="test_goods_sale_cache" primaryKey="goods_sale_cache_id" autoIncrement="true" dataNode="dn$1-30" rule="rule-goods-order-id" />
+	</schema>
+	<dataNode name="dn1" dataHost="dh1" database="test001" />
+	<dataNode name="dn2" dataHost="dh1" database="test002" />
+	<dataNode name="dn3" dataHost="dh1" database="test003" />
+	<dataNode name="dn4" dataHost="dh1" database="test004" />
+	<dataNode name="dn5" dataHost="dh1" database="test005" />
+	<dataNode name="dn6" dataHost="dh1" database="test006" />
+	<dataNode name="dn7" dataHost="dh1" database="test007" />
+	<dataNode name="dn8" dataHost="dh1" database="test008" />
+	<dataNode name="dn9" dataHost="dh1" database="test009" />
+	<dataNode name="dn10" dataHost="dh1" database="test010" />
+	<dataNode name="dn11" dataHost="dh2" database="test011" />
+	<dataNode name="dn12" dataHost="dh2" database="test012" />
+	<dataNode name="dn13" dataHost="dh2" database="test013" />
+	<dataNode name="dn14" dataHost="dh2" database="test014" />
+	<dataNode name="dn15" dataHost="dh2" database="test015" />
+	<dataNode name="dn16" dataHost="dh2" database="test016" />
+	<dataNode name="dn17" dataHost="dh2" database="test017" />
+	<dataNode name="dn18" dataHost="dh2" database="test018" />
+	<dataNode name="dn19" dataHost="dh2" database="test019" />
+	<dataNode name="dn20" dataHost="dh2" database="test020" />
+	<dataNode name="dn21" dataHost="dh3" database="test021" />
+	<dataNode name="dn22" dataHost="dh3" database="test022" />
+	<dataNode name="dn23" dataHost="dh3" database="test023" />
+	<dataNode name="dn24" dataHost="dh3" database="test024" />
+	<dataNode name="dn25" dataHost="dh3" database="test025" />
+	<dataNode name="dn26" dataHost="dh3" database="test026" />
+	<dataNode name="dn27" dataHost="dh3" database="test027" />
+	<dataNode name="dn28" dataHost="dh3" database="test028" />
+	<dataNode name="dn29" dataHost="dh3" database="test029" />
+	<dataNode name="dn30" dataHost="dh3" database="test030" />
+
+
+        <dataHost name="dh1" maxCon="10000" minCon="100" balance="0" writeType="0" dbType="mysql" dbDriver="native">
+                <heartbeat>select 1</heartbeat>
+                <writeHost host="host1_1" url="192.168.8.171:3306" user="root"  password="a123" />
+        </dataHost>	
+		<dataHost name="dh2" maxCon="10000" minCon="100" balance="0" writeType="0" dbType="mysql" dbDriver="native">
+                <heartbeat>select 1</heartbeat>
+                <writeHost host="host2_1" url="192.168.8.172:3306" user="root"  password="a123" />
+        </dataHost>	
+		<dataHost name="dh3" maxCon="10000" minCon="100" balance="0" writeType="0" dbType="mysql" dbDriver="native">
+                <heartbeat>select 1</heartbeat>
+                <writeHost host="host3_1" url="192.168.8.173:3306" user="root"  password="a123" />
+        </dataHost>	
+<!--	<dataHost name="jd_dh1" maxCon="3000" minCon="2" balance="3" writeType="0" dbType="mysql" switchType="2" dbDriver="native" slaveThreshold="200">
+		<heartbeat>show slave status</heartbeat>
+		<writeHost host="host1_1" url="192.168.8.172:3306" user="root" password="a123">
+			<readHost host="hostS1_2" url="192.168.8.171:3306" user="root" password="a123" /> 
+			<readHost host="hostS1_3" url="192.168.8.173:3306" user="root" password="a123" />
+		</writeHost>
+	</dataHost>
+-->
+</mycat:schema>
