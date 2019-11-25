@@ -1,0 +1,29 @@
+<%layout("/common/_container.html"){%>
+<div class="container-fluid">
+	<div class="layui-form" style="margin-top: 20px" id="deptForm" lay-filter="deptFrom">
+		<div class="layui-form-item">
+			<#Input id="deptCode" name="编码" layVerify="required" placeholder="部门编码，唯一不能重复" />
+			<#Tree id="deptPcode" name="上级部门"  isOnlyEnd="false" layVerify="required" placeholder="上级部门" />
+
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="deptSimpleName" name="部门简称" layVerify="required" placeholder="部门简称" />
+			<#Input id="deptFullName" name="部门全称" layVerify="required" placeholder="部门全称" />
+
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Text id="remarks" name="备注" placeholder="备注" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<div class="layui-form-item" style="text-align: center;">
+				<button class="layui-btn" lay-submit lay-filter="add">提交</button>
+				<button class="layui-btn" onclick="DeptInfoDlg.close()">取消</button>
+			</div>
+		</div>
+	</div>
+	<script src="${ctxPath}/view/rock/sys/dept/dept_info.js"></script>
+</div>
+<%}%>

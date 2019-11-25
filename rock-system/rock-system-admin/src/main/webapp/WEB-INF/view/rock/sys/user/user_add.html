@@ -1,0 +1,43 @@
+<%layout("/common/_container.html"){%>
+<div class="container-fluid">
+	<div class="layui-form" style="margin-top: 20px" id="userForm" lay-filter="userFrom">
+		<div class="layui-form-item">
+			<#Input id="userAvatar" name="用户头像base64格式" layVerify="required" placeholder="用户头像base64格式" />
+			<#Input id="userAccount" name="用户账号" layVerify="required" placeholder="用户账号" />
+			<#Input id="userPassword" name="用户密码" layVerify="required" placeholder="用户密码" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="userSalt" name="用户md5密码盐" layVerify="required" placeholder="用户md5密码盐" />
+			<#Input id="userName" name="用户名字" layVerify="required" placeholder="用户名字" />
+			<#Input id="userBirthday" name="用户生日" layVerify="required" placeholder="用户生日" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="userSex" name="性别（1：男 2：女）" layVerify="required" placeholder="性别（1：男 2：女）" />
+			<#Input id="userEmail" name="用户电子邮件" layVerify="required" placeholder="用户电子邮件" />
+			<#Input id="userPhone" name="用户电话" layVerify="required" placeholder="用户电话" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="roleIds" name="用户所属角色id,多个#分割,前后都要包含#" layVerify="required" placeholder="用户所属角色id,多个#分割,前后都要包含#" />
+			<#Input id="roleNames" name="用户所属角色名称,json数组，包含字段roleId,roleName" layVerify="required" placeholder="用户所属角色名称,json数组，包含字段roleId,roleName" />
+			<#Input id="deptIds" name="用户所属部门id,多个#分割,前后都要包含#" layVerify="required" placeholder="用户所属部门id,多个#分割,前后都要包含#" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="deptNames" name="用户所属部名词,json数组包含deptid,deptName" layVerify="required" placeholder="用户所属部名词,json数组包含deptid,deptName" />
+			<#Input id="userStatus" name="状态(1：启用  2：冻结 ）" layVerify="required" placeholder="状态(1：启用  2：冻结 ）" />
+		<div class="layui-form-item">
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<div class="layui-form-item" style="text-align: center;">
+				<button class="layui-btn" lay-submit  lay-filter="add">提交</button>
+				<button class="layui-btn" onclick="UserInfoDlg.close()">取消</button>
+			</div>
+		</div>
+	</div>
+	<script src="${ctxPath}/view/rock/sys/user/user_info.js"></script>
+</div>
+<%}%>

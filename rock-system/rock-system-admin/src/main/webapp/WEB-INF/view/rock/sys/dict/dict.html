@@ -1,0 +1,22 @@
+<% layout("/common/_container.html"){ %>
+
+<input type="hidden" value="-2" name="dictKey" id="dictKey">
+<input type="hidden" value="" name="dictCode" id="dictCode">
+<div class="container-fluid layui-inline rock-height-fluid rock-box" id="dictTree" style="width: 18%"></div>
+<div class="container-fluid layui-inline rock-height-fluid" style="width: 80%; margin-left: 20%">
+	<table class="layui-table" id="dictTable" lay-filter="dictTable"></table>
+
+	<script type="text/html" id="dictToolbar">
+	  <div class="layui-btn-container">
+	    <button class="layui-btn layui-btn-sm" lay-event="reload"><i class="layui-icon layui-icon-search"></i></i>查询</button>
+	    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-1"></i>添加</button>
+	  </div>
+	</script>
+
+	<script type="text/html" id="dictBar">
+	  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+	  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+	<script src="${ctxPath}/view/rock/sys/dict/dict.js"></script>
+</div>
+<% } %>

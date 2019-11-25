@@ -1,0 +1,35 @@
+<%layout("/common/_container.html"){%>
+<div class="container-fluid">
+	<div class="layui-form" style="margin-top: 20px" id="authzForm" lay-filter="authzFrom">
+		<div class="layui-form-item">
+			<#Input id="authzCode" name="权限编码" layVerify="required" placeholder="权限编码" />
+			<#Input id="authzParentCode" name="权限父编码" layVerify="required" placeholder="权限父编码" />
+			<#Input id="authzName" name="权限名称" layVerify="required" placeholder="权限名称" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="authzIcon" name="权限图片，菜单权限专用" layVerify="required" placeholder="权限图片，菜单权限专用" />
+			<#Input id="authzUrl" name="权限url地址，菜单权限专用" layVerify="required" placeholder="权限url地址，菜单权限专用" />
+			<#Input id="authzSort" name="权限排序，升序" layVerify="required" placeholder="权限排序，升序" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="authzType" name="权限类型，0菜单，1按钮;2字段" layVerify="required" placeholder="权限类型，0菜单，1按钮;2字段" />
+			<#Input id="authzTips" name="备注" layVerify="required" placeholder="备注" />
+			<#Input id="authzStatus" name="菜单状态 :  0:启用   1:不启用" layVerify="required" placeholder="菜单状态 :  0:启用   1:不启用" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Input id="authzIsOpen" name="是否打开:    1:打开   0:不打开；菜单权限专用" layVerify="required" placeholder="是否打开:    1:打开   0:不打开；菜单权限专用" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<div class="layui-form-item" style="text-align: center;">
+				<button class="layui-btn" lay-submit  lay-filter="add">提交</button>
+				<button class="layui-btn" onclick="AuthzInfoDlg.close()">取消</button>
+			</div>
+		</div>
+	</div>
+	<script src="${ctxPath}/view/rock/sys/authz/authz_info.js"></script>
+</div>
+<%}%>

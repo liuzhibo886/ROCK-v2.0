@@ -1,0 +1,38 @@
+<%layout("/common/_container.html"){%>
+<div class="container-fluid">
+	<div class="layui-form" style="margin-top: 20px" id="dictForm" lay-filter="dictFrom">
+		<div class="layui-form-item">
+			<input type="hidden" id="dictPkey" name="dictPkey" value="${pDict.dictKey}">
+			<#Input id="dictPValue" name="父节点" layVerify="required" placeholder="父节点" value="${pDict.dictValue}" disabled="disabled" />
+			<%if(isEmpty(pDict.dictCode)){ %>
+			<#Input id="dictCode" name="编码" layVerify="required" placeholder="字典编码" value="" />
+			<#Input id="dictMaxLevel" name="最大等级" layVerify="required" placeholder="最大等级" />
+			<%} else{%>
+			<#Input id="dictCode" name="编码" layVerify="required" placeholder="字典编码" value="${pDict.dictCode}" disabled="disabled" />
+			<#Input id="dictMaxLevel" name="最大等级" layVerify="required" placeholder="最大等级,从0开始" disabled="disabled" value="${pDict.dictMaxLevel}" />
+			<%}%>
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<%if(isEmpty(pDict.dictCode)){ %>
+			<#Input id="dictKey" name="key" placeholder="key" value="-1" disabled="disabled" />
+			<%} else{%>
+			<#Input id="dictKey" name="key" placeholder="key" />
+			<%}%>
+			<#Input id="dictValue" name="value" layVerify="required" placeholder="value" />
+			<#Input id="sort" name="排序" layVerify="required" placeholder="升序" value="0"/>
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<#Text id="dictText" name="额外数据" placeholder="额外数据" />
+		</div>
+		<#Fieldset />
+		<div class="layui-form-item">
+			<div class="layui-form-item" style="text-align: center;">
+				<button class="layui-btn" lay-submit lay-filter="add">提交</button>
+				<button class="layui-btn" onclick="DictInfoDlg.close()">取消</button>
+			</div>
+		</div>
+		<script src="${ctxPath}/view/rock/sys/dict/dict_info.js"></script>
+	</div>
+	<%}%>
