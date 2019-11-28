@@ -1,0 +1,17 @@
+.logo-name {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.logo-name > h1 {
+	color: #e6e6e6;
+	font-size: 180px;
+	font-weight: 800;
+	letter-spacing: -10px;
+	margin-bottom: 0px;
+	display: inline-block;
+}
+.logo-from{
+	width: 400px;
+	margin:0px auto;
+}

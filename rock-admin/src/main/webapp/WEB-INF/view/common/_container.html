@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="renderer" content="webkit" />
+<!-- 让360浏览器默认选择webkit内核 -->
+
+<link rel="shortcut icon" href="/static/rock/img/favicon.ico">
+<link href="${ctxPath}/static/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="${ctxPath}/static/layui/2.5.5/css/layui.css" media="all">
+<!-- <link rel="stylesheet" href="${ctxPath}/static/treetable-lay/module/treetable-lay/treetable.css" media="all">
+ --><link href="${ctxPath}/static/rock/css/rock.css" rel="stylesheet" />
+<script src="${ctxPath}/static/layui/2.5.5/layui.all.js"></script>
+<script src="${ctxPath}/static/treetable-lay/module/treetable-lay/treetable.js"></script>
+<script src="${ctxPath}/static/rock/js/common/util.js"></script>
+<script src="${ctxPath}/static/rock/js/common/rock-init.js"></script>
+<script src="${ctxPath}/static/rock/js/common/feng.js"></script>
+<script src="${ctxPath}/static/rock/js/common/layui-table-object.js"></script>
+<script src="${ctxPath}/static/rock/js/common/ajax-object.js"></script>
+<script src="${ctxPath}/static/rock/js/common/tree-object.js"></script>
+<script src="${ctxPath}/static/rock/js/common/select-object.js"></script>
+
+<script type="text/javascript">
+	Feng.addCtx("${ctxPath}");
+	Feng.sessionTimeoutRegistry();
+</script>
+</head>
+
+<body style="background-color: white; height: 100%;">
+	${layoutContent}
+</body>
+</html>

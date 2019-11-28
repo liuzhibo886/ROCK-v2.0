@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>${rockProperties.getSysWholeName()}</title>
+
+<link rel="shortcut icon" href="/static/rock/img/favicon.ico">
+<link href="${ctxPath}/static/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+<script src="${ctxPath}/static/jquery/3.4.1/jquery.min.js"></script>
+<script src="${ctxPath}/static/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="${ctxPath}/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${ctxPath}/static/rock/css/rock.css" rel="stylesheet" />
+<link rel="stylesheet" href="${ctxPath}/static/layui/2.5.4/css/layui.css" media="all">
+
+<script src="${ctxPath}/static/rock/js/index.js"></script>
+</head>
+<body class="gray-bg">
+
+	<!--左侧导航开始-->
+	<%include("/common/_left.html"){}%>
+	<!--头部-->
+	<%include("/common/_top.html"){}%>
+	<!--中间部分  -->
+	<%include("/common/_center.html"){}%>
+	<!--底部-->
+	<%include("/common/_footer.html"){}%>
+	<script src="${ctxPath}/static/layui/2.5.4/layui.all.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lzb</groupId>
+		<artifactId>rock</artifactId>
+		<version>2.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.lzb.rock.admin</groupId>
+	<artifactId>rock-admin</artifactId>
+	<packaging>jar</packaging>
+
+	<name>rock-admin</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.lzb.rock.system</groupId>
+			<artifactId>rock-system-admin</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+		</dependency>
+		<!--基础包 -->
+		<dependency>
+			<groupId>com.lzb.rock.base</groupId>
+			<artifactId>rock-base</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lzb.rock.web</groupId>
+			<artifactId>rock-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lzb.rock.login</groupId>
+			<artifactId>rock-login</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.lzb.rock.ehcache</groupId>
+			<artifactId>rock-ehcache</artifactId>
+		</dependency>
+	</dependencies>
+
+	<!--==================================== -->
+	<!-- 配置不同环境的配置文件 -->
+	<!--==================================== -->
+	<!-- 打包配置: 1、mvn package -DskipTests 打本地环境包，指定了dev为默认环境，顾不需要进行环境指定 2、mvn 
+		clean package -DskipTests -Pprod 打生成环境包 ： -P{profile环境ID} 3、mvn clean package 
+		-DskipTests -Ptest 打测试环境包 ： -P{profile环境ID} 说明：通过 -P 指定 profile。 -->
+	<profiles>
+		<profile>
+			<!-- 本地开发环境 -->
+			<id>dev</id>
+			<properties>
+				<package.environment>dev</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 测试环境 -->
+			<id>test</id>
+			<properties>
+				<package.environment>test</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 预发布环境 -->
+			<id>prec</id>
+			<properties>
+				<package.environment>prec</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 生产环境 -->
+			<id>prod</id>
+			<properties>
+				<package.environment>prod</package.environment>
+			</properties>
+		</profile>
+	</profiles>
+	<build>
+		<finalName>${project.name}-${project.version}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>dev/*</exclude>
+					<exclude>prod/*</exclude>
+					<exclude>test/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${package.environment}</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.lzb.rock.admin.AdminApplication</mainClass>
+					<source>1.8</source>
+					<target>1.8</target>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<profiles>UTF-8</profiles>
+				</configuration>
+			</plugin>
+		</plugins>
+		<defaultGoal>compile</defaultGoal>
+	</build>
+</project>
